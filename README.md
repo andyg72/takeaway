@@ -18,3 +18,41 @@ However, if your Takeaway is loaded into IRB and the order is placed, the text s
 A free account on Twilio will only allow you to send texts to "verified" numbers. Use your mobile phone number, don't worry about the customer's mobile phone.
 
 Note: We are looking for good OO design and programming! Remember the SOLID principles!
+
+##Class Responsibility Collaborators - Domain Model
+
+###Menu
+| Responsibility | Collaborators|
+|----------------|--------------|
+| display Menu   | Order Interface |
+
+###Order Validation
+| Responsibility | Collaborators|
+|----------------|--------------|
+| validate Order | Order Interface |
+
+###Customer
+| Responsibility | Collaborators|
+|----------------|--------------|
+| provide Customer Details | Order Interface |
+
+###Confirm Order
+| Responsibility | Collaborators|
+|----------------|--------------|
+| text Customer  | Order Interface |
+
+###Order Interface
+| Responsibility | Collaborators|
+|----------------|--------------|
+| display Menu   | Menu |
+| take Order     | |
+| validate Order | Order Validation |
+| provider Customer Details | Customer |
+| text Customer | Confirm Order
+
+
+
+
+
+
+
