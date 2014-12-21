@@ -14,9 +14,15 @@ require 'twilio-ruby'
 
 class TextConfirmation
 
+  attr_reader :body
+
+  def initialize
+    create_body
+  end
+
   def create_body
     delivery_time = (Time.new + 60*60).strftime("%R")
-    body = "Thank you! Your order was placed and will be delivered before #{delivery_time}."
+    @body = "Thank you! Your order was placed and will be delivered before #{delivery_time}."
   end
 
 end

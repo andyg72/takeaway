@@ -8,4 +8,8 @@ let(:menu){Menu.new}
     expect(menu.menu_list.length).to be > 0
   end
 
+  it 'should create a list of dishes' do
+    expect(menu.menu_dishes.length).to be > 0
+  end
+
 end
