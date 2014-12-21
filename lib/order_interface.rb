@@ -1,12 +1,20 @@
 class OrderInterface
 
-  attr_reader :customer_order, :menu
+  attr_reader :customer_order, :menu, :menu_dishes
 
   def initialize
     @customer_order = []
-    @menu = Menu.new
-    display_menu
-    interactive_menu
+    @menu = {}
+    @menu_dishes = []
+    load_menu
+  end
+
+  def load_menu 
+    CSV.foreach('menu.csv') do |line| 
+      dish = line[0] ; price = line[1]
+      @menu[dish.to_sym] = price.to_f
+      @menu_dishes = menu.keys.to_s
+    end
   end
 
   def interactive_menu
@@ -35,7 +43,7 @@ class OrderInterface
   
   def display_menu
     puts 'Welcome to Andy\'s Takeaway'
-    menu.menu_list.each { |k, v| puts "#{k.to_s} - #{v.to_f}"}
+    menu.each { |k, v| puts "#{k.to_s} - #{v.to_f}"}
   end
 
   def capture_order
@@ -49,8 +57,22 @@ class OrderInterface
   end
 
   def confirm_order
-    order_validation = OrderValidation.new
-    order_validation.validate_dishes(customer_order) 
-    order_validation.validate_cost(customer_order)
+    validate_dishes(customer_order) 
+    validate_cost(customer_order)
   end
+
+  def validate_dishes
+    ordered_dishes = []
+    customer_order.each { |line| ordered_dishes << line[:dish] }
+    unlisted_items = ordered_dishes.reject { | dish | menu_dishes.include?(dish) }
+    unlisted_items.length > 0 ? false : true
+  end
+
+  def validate_cost
+    customer_order.each { |line| line[:price] = menu[line[:dish].to_sym] }
+    order_cost_total = customer_order.inject(0) { | memo, item | memo + item[:cost]}
+    menu_order_cost = customer_order.inject(0) { | memo, item | memo + (item[:price] * item[:quantity])}
+    order_cost_total == menu_order_cost ? true : false
+  end
+
 end
