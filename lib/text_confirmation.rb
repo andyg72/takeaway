@@ -1,4 +1,4 @@
-require 'bundler/setup'
+# require 'bundler/setup'
 require 'twilio-ruby'
 
 # account_sid = AC14aa4e1c2ecfa3b75d234b1f9e917bbc
