@@ -21,36 +21,29 @@ Note: We are looking for good OO design and programming! Remember the SOLID prin
 
 ##Class Responsibility Collaborators - Domain Model
 
-###Menu
+###MenuManager
 | Responsibility | Collaborators|
 |----------------|--------------|
+| load Menu      | Order Interface |
 | display Menu   | Order Interface |
 
-###Order Validation
+###OrderInterface
 | Responsibility | Collaborators|
 |----------------|--------------|
-| validate Order | Order Interface |
-
-###Customer
-| Responsibility | Collaborators|
-|----------------|--------------|
-| provide Customer Details | Order Interface |
-
-###Confirm Order
-| Responsibility | Collaborators|
-|----------------|--------------|
-| text Customer  | Order Interface |
-
-###Order Interface
-| Responsibility | Collaborators|
-|----------------|--------------|
-| display Menu   | Menu |
+| display Menu   | MenuManager |
 | take Order     | |
-| validate Order | Order Validation |
-| provider Customer Details | Customer |
-| text Customer | Confirm Order
+| validate Order | |
+| text Customer | TextConfirmation |
 
+###TextConfirmation
+| Responsibility | Collaborators|
+|----------------|--------------|
+| text Customer  | OrderInterface | 
 
+###Domain Model Thoughts
+My initial thoughts were for a more complex model. My questions around the domain model come from separation questions of objects vs processes. In Battleships it was quite clear what the major objects were, however in this case it was less clear and I had confused processes (e.g. confirm order) with objects (e.g. menu).
+
+However in the model I have implemented I feel that the interface management needs to be separated out from the management of the order (eg. to have OrderInterface and OrderManagement classes).
 
 
 
