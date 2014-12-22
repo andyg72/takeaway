@@ -23,6 +23,4 @@ class MenuManager
     menu.each { |k, v| puts "#{k.to_s} - #{v.to_f}"}
   end
 
-
-
 end

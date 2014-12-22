@@ -5,16 +5,17 @@ class TextConfirmation
 
   ACCOUNT_SID = 'AC14aa4e1c2ecfa3b75d234b1f9e917bbc'
   AUTH_TOKEN = '64b492080ce7062d9142e3b6a1a77e65'
+  FROM = '+441490266043'
 
   attr_reader :body, :client
 
   def send_confirmation
-    create_client(Twilio::REST::Client)
+    create_client
     create_body
     send_text
   end
 
-  def create_client(api)
+  def create_client(api = Twilio::REST::Client)
     @client = api.new(ACCOUNT_SID, AUTH_TOKEN)
   end
 
@@ -25,9 +26,9 @@ class TextConfirmation
 
   def send_text
     client.account.sms.messages.create(
-      :from => '+441490266043',
+      :from => FROM,
       :to => '+447525460227',
-      :body => @body)
+      :body => body)
   end
 
 end

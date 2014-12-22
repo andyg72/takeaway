@@ -73,7 +73,7 @@ class OrderInterface
     ordered_dishes = []
     customer_order.each { |line| ordered_dishes << line[:dish] }
     unlisted_items = ordered_dishes.reject { | dish | menu_manager.menu_dishes.include?(dish) }
-    raise "Sorry #{unlisted_items} aren't on the menu" if unlisted_items.empty? == false
+    raise "Sorry #{unlisted_items.join(", ")} isn't on the menu" if unlisted_items.empty? == false
   end
 
   def validate_cost
@@ -84,8 +84,7 @@ class OrderInterface
   end
 
   def raise_confirmation_text(content = TextConfirmation)
-    text_confirmation = content.new
-    text_confirmation.send_confirmation
+    content.new.send_confirmation
   end
 
 
