@@ -3,6 +3,17 @@
 
 ##Makers Academy Weekend Challenge - Week 2 Pt2
 
+to run from irb
+```shell
+require './lib/order_interface'
+require './lib/menu_manager'
+require './lib/text_confirmation'
+
+order_interface = OrderInterface.new
+order_interface.interactive menu
+```
+
+
 ###Coding Objective: Write a Takeaway program.
 ###Learning Objective: Ruby, Object Oriented Design, Test Driven Development, Twilio API integration through gem
 
