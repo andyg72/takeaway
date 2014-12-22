@@ -8,7 +8,7 @@ class TextConfirmation
 
   attr_reader :body, :client
 
-  def send_confiration
+  def send_confirmation
     create_client(Twilio::REST::Client)
     create_body
     send_text

@@ -1,22 +1,10 @@
-require 'csv'
-
 class OrderInterface
 
-  attr_reader :customer_order, :menu, :menu_dishes
+  attr_reader :customer_order
 
   def initialize
     @customer_order = []
-    @menu = {}
-    @menu_dishes = []
-    load_menu
-  end
-
-  def load_menu 
-    CSV.foreach('menu.csv') do |line| 
-      dish = line[0] ; price = line[1]
-      @menu[dish.to_sym] = price.to_f
-      @menu_dishes = menu.keys.to_s
-    end
+    @menu_manager = MenuManager.new
   end
 
   def interactive_menu
@@ -35,7 +23,7 @@ class OrderInterface
 
   def process(selection)
     case selection
-    when '1' then display_menu
+    when '1' then menu.display_menu
     when '2' then capture_order
     when '3' then confirm_order
     when '9' then exit
@@ -43,11 +31,6 @@ class OrderInterface
     end
   end
   
-  def display_menu
-    puts 'Welcome to Andy\'s Takeaway'
-    menu.each { |k, v| puts "#{k.to_s} - #{v.to_f}"}
-  end
-
   def capture_order
     puts 'What dish would you like?'
     dish = STDIN.gets.chomp
@@ -59,22 +42,30 @@ class OrderInterface
   end
 
   def confirm_order
-    validate_dishes(customer_order) 
-    validate_cost(customer_order)
+    validate_dishes 
+    validate_cost
+    raise_confirmation_text
+    "You should receive an SMS confirming your order and expected delivery time"
   end
 
   def validate_dishes
     ordered_dishes = []
     customer_order.each { |line| ordered_dishes << line[:dish] }
-    unlisted_items = ordered_dishes.reject { | dish | menu_dishes.include?(dish) }
-    unlisted_items.length > 0 ? false : true
+    unlisted_items = ordered_dishes.reject { | dish | @menu_manager.menu_dishes.include?(dish) }
+    raise 'Sorry at least one item you ordered isn\'t on the menu' if unlisted_items.length > 0
   end
 
   def validate_cost
-    customer_order.each { |line| line[:price] = menu[line[:dish].to_sym] }
+    customer_order.each { |line| line[:price] = @menu_manager.menu[line[:dish].to_sym] }
     order_cost_total = customer_order.inject(0) { | memo, item | memo + item[:cost]}
     menu_order_cost = customer_order.inject(0) { | memo, item | memo + (item[:price] * item[:quantity])}
-    order_cost_total == menu_order_cost ? true : false
+    raise 'Sorry the amount you entered is not correct' if order_cost_total != menu_order_cost 
   end
+
+  def raise_confirmation_text(content = TextConfirmation)
+    text_confirmation = content.new
+    text_confirmtion.send_confirmation
+  end
+
 
 end
