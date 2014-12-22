@@ -8,4 +8,8 @@ describe TextConfirmation do
     expect(text_confirmation.body).not_to be nil
   end
 
+  it 'should generate a text message to Twilio' do
+    expect(text_confirmation.construct_text)
+  end
+
 end

@@ -1,3 +1,5 @@
+require 'csv'
+
 class OrderInterface
 
   attr_reader :customer_order, :menu, :menu_dishes

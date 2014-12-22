@@ -12,7 +12,7 @@ describe OrderInterface do
     expect(order_interface.menu_dishes.length).to be > 0
   end
 
-  it 'should create a customer order (provided details are correct)' do
+  xit 'should create a customer order (provided details are correct)' do
     expect(order_interface.customer_order.length).to be > 0
   end
 
