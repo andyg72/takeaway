@@ -16,6 +16,4 @@ let(:menu_manager){MenuManager.new}
 
   end
 
-
-
 end

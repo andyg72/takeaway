@@ -1,7 +1,5 @@
 class OrderManager
 
-# expect to move key methods that manage customer order into here from order_interface
-
   attr_reader :customer_order, :menu_manager
 
   def initialize
