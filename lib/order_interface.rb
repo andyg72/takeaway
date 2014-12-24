@@ -1,6 +1,6 @@
 class OrderInterface
 
-  attr_reader :customer_order, :menu_manager
+  attr_reader :order_manager
 
   def initialize
     @order_manager = OrderManager.new

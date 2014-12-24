@@ -1,4 +1,4 @@
-# require 'bundler/setup'
+
 require 'twilio-ruby'
 
 class TextConfirmation
