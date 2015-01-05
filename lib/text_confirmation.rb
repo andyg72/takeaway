@@ -27,7 +27,7 @@ class TextConfirmation
   def send_text
     client.account.sms.messages.create(
       :from => FROM,
-      :to => '+447525460227',
+      :to => File.read("phone_number.dat"),
       :body => body)
   end
 
