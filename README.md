@@ -11,7 +11,7 @@ require './lib/menu_manager'
 require './lib/text_confirmation'
 
 order_interface = OrderInterface.new
-order_interface.interactive menu
+order_interface.interactive_menu
 ```
 
 
