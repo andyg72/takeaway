@@ -6,6 +6,7 @@
 to run from irb
 ```shell
 require './lib/order_interface'
+require './lib/order_manager'
 require './lib/menu_manager'
 require './lib/text_confirmation'
 
@@ -32,29 +33,35 @@ Note: We are looking for good OO design and programming! Remember the SOLID prin
 
 ##Class Responsibility Collaborators - Domain Model
 
-###MenuManager
-| Responsibility | Collaborators|
-|----------------|--------------|
-| load Menu      | Order Interface |
-| display Menu   | Order Interface |
-
 ###OrderInterface
 | Responsibility | Collaborators|
 |----------------|--------------|
-| display Menu   | MenuManager |
+| customer interaction | OrderManager | 
+
+###OrderManager
+| Responsibility | Collaborators|
+|----------------|--------------|
+| display Menu   | MenuManager  |
 | take Order     | |
 | validate Order | |
 | text Customer | TextConfirmation |
 
+###MenuManager
+| Responsibility | Collaborators|
+|----------------|--------------|
+| load Menu      | OrderManager |
+| display Menu   | OrderManager |
+
 ###TextConfirmation
 | Responsibility | Collaborators|
 |----------------|--------------|
-| text Customer  | OrderInterface | 
+| text Customer  | OrderManager | 
 
 ###Domain Model Thoughts
 My initial thoughts were for a more complex model. My questions around the domain model come from separation questions of objects vs processes. In Battleships it was quite clear what the major objects were, however in this case it was less clear and I had confused processes (e.g. confirm order) with objects (e.g. menu).
 
-However in the model I have implemented I feel that the interface management needs to be separated out from the management of the order (eg. to have OrderInterface and OrderManagement classes).
+Have now fixed the below comment =>
+  However in the model I have implemented I feel that the interface management needs to be separated out from the management of the order (eg. to have OrderInterface and OrderManagement classes).
 
 
 
