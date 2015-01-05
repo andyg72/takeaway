@@ -7,12 +7,6 @@ class OrderManager
     @menu_manager = MenuManager.new
   end
 
-  def confirm_order
-    raise 'You need to add at least one dish to your order' if customer_order.empty?
-    raise_confirmation_text
-    puts 'You should receive an SMS confirming your order and expected delivery time'
-  end
-
   def add_item_to_order(dish, quantity, cost)
     validate_dish(dish)
     validate_dish_cost(dish, quantity, cost)
@@ -37,6 +31,12 @@ class OrderManager
 
   def delete_entire_order
     customer_order.clear
+  end
+
+  def confirm_order
+    raise 'You need to add at least one dish to your order' if customer_order.empty?
+    raise_confirmation_text
+    puts 'You should receive an SMS confirming your order and expected delivery time'
   end
 
   def raise_confirmation_text(content = TextConfirmation)
