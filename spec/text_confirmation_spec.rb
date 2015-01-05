@@ -4,6 +4,7 @@ describe TextConfirmation do
   
   let(:text_confirmation){TextConfirmation.new}
   let(:api_double){double :api_double}
+  let(:client){double :client}
  
   it 'should create a text message for the expected delivery time' do
     text_confirmation.create_body
