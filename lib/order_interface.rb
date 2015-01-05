@@ -37,6 +37,7 @@ class OrderInterface
   end
   
   def capture_order
+    order_manager.menu_manager.display_menu
     puts 'What dish would you like?'
     dish = STDIN.gets.chomp
     puts "How many #{dish} would you like?"

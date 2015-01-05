@@ -17,7 +17,7 @@ class MenuManager
   end
 
   def display_menu
-    puts 'Welcome to Andy\'s Takeaway'
+    puts 'Andy\'s Takeaway'
     menu.each { |k, v| puts "#{k} - #{v}"}
   end
 

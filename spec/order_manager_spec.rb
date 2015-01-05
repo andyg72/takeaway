@@ -2,25 +2,21 @@ require 'order_manager'
 
 describe OrderManager do 
 
-  # insert tests releveant to order_manager methods in here after transferring from order_interface
-
   let(:order_manager){OrderManager.new}
   let(:menu_manager){MenuManager.new}
   
   context 'validate that dishes are on the menu' do
 
-    it 'should raise an error if an item ordered is not on the menu' do
-      allow(order_manager).to receive(:customer_order).and_return([{:dish => "Banana", :quantity => 3, :cost => 30}])
-      expect{order_manager.validate_dishes}.to raise_error(RuntimeError, 'Sorry Banana isn\'t on the menu')
+    it 'should raise an error if the individual dish ordered is not on the menu' do
+      expect{order_manager.validate_dish('Banana')}.to raise_error(RuntimeError, 'Sorry Banana isn\'t on the menu')
     end
 
   end
 
   context 'validate that the cost provided by the customer is correct' do
 
-    it 'should raise an error if the total for the ordered items is not correct' do
-      allow(order_manager).to receive(:customer_order).and_return([{:dish => "Pad Thai", :quantity => 3, :cost => 30}, {:dish => "Red Curry", :quantity => 2, :cost => 15.5}])
-      expect{order_manager.validate_cost}.to raise_error(RuntimeError, 'Sorry the amount you entered is not correct')
+    it 'should raise an error if the total for the dish ordered is incorrect' do
+      expect{order_manager.validate_dish_cost('Red Curry', 2, 14.25)}.to raise_error(RuntimeError, 'Sorry the cost you entered is incorrect')
     end
 
   end
