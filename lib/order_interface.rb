@@ -28,7 +28,7 @@ class OrderInterface
     when '1' then order_manager.menu_manager.display_menu
     when '2' then capture_order
     when '3' then order_manager.view_order
-    when '4' then order_manager.delete_item
+    when '4' then delete_an_item_from_order
     when '5' then order_manager.delete_entire_order
     when '6' then order_manager.confirm_order
     when '9' then exit
@@ -40,10 +40,16 @@ class OrderInterface
     puts 'What dish would you like?'
     dish = STDIN.gets.chomp
     puts "How many #{dish} would you like?"
-    quantity = STDIN.gets.chomp
+    quantity = STDIN.gets.chomp.to_i
     puts 'How much is that?'
-    cost = STDIN.gets.chomp
-    order_manager.customer_order << {:dish => dish, :quantity => quantity.to_i, :cost => cost.to_f}
+    cost = STDIN.gets.chomp.to_f
+    order_manager.add_item_to_order(dish, quantity, cost)
+  end
+
+  def delete_an_item_from_order
+    order_manager.view_order
+    puts 'Which line item would you like to delete?'
+    order_manager.delete_item(STDIN.gets.chomp.to_i - 1)
   end
 
 end

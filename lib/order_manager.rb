@@ -15,14 +15,16 @@ class OrderManager
     puts 'You should receive an SMS confirming your order and expected delivery time'
   end
 
+  def add_item_to_order(dish, quantity, cost)
+    customer_order << {:dish => dish, :quantity => quantity.to_i, :cost => cost.to_f}
+  end
+
   def view_order
     customer_order.each_with_index { |item, i| puts "#{i+1}. #{item[:dish]}, #{item[:quantity]}, #{item[:cost]}" }  
   end
 
-  def delete_item
-    view_order
-    puts 'Which line item would you like to delete?'
-    customer_order.delete_at(STDIN.gets.chomp.to_i - 1)
+  def delete_item(item_index)
+    customer_order.delete_at(item_index)
   end
 
   def delete_entire_order

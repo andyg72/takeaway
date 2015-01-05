@@ -13,7 +13,7 @@ class MenuManager
   def load_menu 
     CSV.foreach('menu.csv') do |line| 
       dish = line[0] ; price = line[1]
-      @menu[dish.to_sym] = price.to_f
+      @menu[dish] = price.to_f
       @menu_dishes = menu.keys.to_s
     end
   end
